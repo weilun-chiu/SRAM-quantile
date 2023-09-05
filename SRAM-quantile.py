@@ -5,7 +5,9 @@ cols = 1024   # assume each cache can store 1024 float
 rows = 4096   # assume total data is cols * rows
 num_bins = 8  # assume we wanto to quantize into int-8 (7 bins)
 
-def normalize(data):
+def normalize(data, disable = True):
+  if disable: # Normalized can reduce the error but required additional memory to memorize mean & STDV
+    return data 
   mean = np.mean(data)
   stdv = np.std(data)
   data = (np.array(data) - mean) / stdv
